@@ -20,7 +20,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { FM } from './FormModalStyle'
 
-export default function FormModal({ values, updateModal, setUpdateModal, updateHandler, handleChange }) {
+export default function FormModal({ values, userData, updateModal, setUpdateModal, updateHandler, handleChange }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const handleCloseUpdate = () => {
@@ -87,8 +87,8 @@ export default function FormModal({ values, updateModal, setUpdateModal, updateH
                 value={values.isActive}
                 onChange={handleChange('isActive')}
               >
-                <FormControlLabel key={'true'} value={'true'} control={<Radio />} label={'True'} />
-                <FormControlLabel key={'false'} value={'false'} control={<Radio />} label={'False'} />
+                <FormControlLabel key={'true'} value={'true'} disabled={userData !== 'Admin'} control={<Radio />} label={'True'} />
+                <FormControlLabel key={'false'} value={'false'} disabled={userData !== 'Admin'} control={<Radio />} label={'False'} />
               </RadioGroup>
               <br/>
               <FormLabel required id="demo-row-radio-buttons-group-label">{"Role"}</FormLabel>
@@ -99,8 +99,9 @@ export default function FormModal({ values, updateModal, setUpdateModal, updateH
                 value={values.isAdmin}
                 onChange={handleChange('isAdmin')}
               >
-                <FormControlLabel key={'true'} value={'true'} control={<Radio />} label={'Admin'} />
-                <FormControlLabel key={'false'} value={'false'} control={<Radio />} label={'User'} />
+                <FormControlLabel key={'Admin'} value={'Admin'} disabled={userData !== 'Admin'} control={<Radio />} label={'Admin'} />
+                <FormControlLabel key={'Staff'} value={'Staff'} disabled={userData !== 'Admin'} control={<Radio />} label={'Staff'} />
+                <FormControlLabel key={'User'} value={'User'}   disabled={userData !== 'Admin'} control={<Radio />} label={'User'} />
               </RadioGroup>
 
             </>

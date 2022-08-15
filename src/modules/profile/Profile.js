@@ -22,35 +22,6 @@ export default function Profile() {
         navigate('/login')
         window.reload()
     }
-
-    const fetchProfile =  async () => {
-        const { access_token } = getToken()
-        let request = {
-            method: 'get',
-            url: `${endPoint}profile/`,
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${access_token}`,
-            }
-        };
-        try {
-            let res = await axios(request);
-            if (res.data) {
-                dispatch({
-                    type: "USER_PROFILE",
-                    payload: {
-                        profile: res.data
-                    },
-                });
-            }
-        } catch (err) {
-            <></>
-        }
-    }
-
-    useEffect(()=>{
-        fetchProfile()
-    }, [])
     return (
         <Grid container sx={{ paddingTop: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Grid item sm={10} md={4} sx={{ backgroundColor: 'gray', p: 5, color: 'white' }}>

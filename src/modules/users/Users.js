@@ -13,7 +13,7 @@ import FormModal from '../../common/formModal/FormModal';
 import { AvatarBgColor } from '../../common/utils/Utils'
 
 export default function Users() {
-    const [{ users, values, loading, open, setOpen, deleteHandler, deleteModalHandler, updateModal, setUpdateModal, showUpdateModal, handleChange, updateHandler }] = UseUsers();
+    const [{ users, userData, values, loading, open, setOpen, deleteHandler, deleteModalHandler, updateModal, setUpdateModal, showUpdateModal, handleChange, updateHandler }] = UseUsers();
     return (
         <div>
             {
@@ -71,6 +71,7 @@ export default function Users() {
                                                             color="error"
                                                             aria-label="update"
                                                             size="small"
+                                                            disabled={userData.role !== 'Admin'}
                                                             onClick={() => deleteModalHandler(row?.id)}
                                                         >
                                                             <UserStyle.DeleteIcon />
@@ -80,6 +81,7 @@ export default function Users() {
                                                         <IconButton
                                                             aria-label="update"
                                                             size="small"
+                                                            disabled={userData.role === 'User'}
                                                             onClick={() => showUpdateModal(row)}
                                                         >
                                                             <UserStyle.EditIcon />
@@ -93,7 +95,7 @@ export default function Users() {
                             </UserStyle.Table>
                         </UserStyle.TableContainer>
                         <TransitionsModal sumbitHandler={deleteHandler} open={open} setOpen={setOpen} />
-                        <FormModal values={values} updateModal={updateModal} setUpdateModal={setUpdateModal} handleChange={handleChange} updateHandler={updateHandler} />
+                        <FormModal values={values} userData={userData.role} updateModal={updateModal} setUpdateModal={setUpdateModal} handleChange={handleChange} updateHandler={updateHandler} />
                     </>
             }
         </div>

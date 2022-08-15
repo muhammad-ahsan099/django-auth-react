@@ -12,11 +12,12 @@ export const UseUsers = () => {
     const [userId, setUserId] = useState('')
     const [updateModal, setUpdateModal] = useState(false)
     const [loading, setLoading] = useState(false)
+    const userData = state.userProfile
     const { access_token } = getToken()
     const [values, setValues] = useState({
         name: '',
         email: '',
-        isAdmin: false,
+        isAdmin: userData?.role,
         isActive: false,
     });
     const handleChange = (prop) => (event) => {
@@ -50,9 +51,8 @@ export const UseUsers = () => {
                 ToastSuccess(`${res.data.msg}`)
                 setUserId('')
             }
-        } catch (err) {
-            <></>
-        }
+        } catch (error) {
+            ToastError(error?.response?.data?.errors?.msg)        }
     }
     const showUpdateModal = (row) => {
         if (!updateModal) {
@@ -104,7 +104,7 @@ export const UseUsers = () => {
                     setUserId('')
                 }
             } catch (error) {
-                ToastError(error.message)
+                ToastError(error?.response?.data?.errors?.msg) 
             }
             finally {
                 setUpdateModal(false)
@@ -141,7 +141,7 @@ export const UseUsers = () => {
       }, 1000);
     useEffect(() => {
         fetchUsers()
-    }, [state.users])
+    }, [])
 
-    return [{ users, values, loading, open, setOpen, deleteHandler, updateModal, setUpdateModal, deleteModalHandler, updateHandler, showUpdateModal, handleChange, updateHandler }]
+    return [{ users, userData, values, loading, open, setOpen, deleteHandler, updateModal, setUpdateModal, deleteModalHandler, updateHandler, showUpdateModal, handleChange, updateHandler }]
 }
