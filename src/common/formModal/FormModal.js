@@ -1,26 +1,25 @@
 import React, { useContext, useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Autocomplete, MenuItem, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Stack, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import { AppContext } from "../../State";
 import { useTheme } from '@mui/material/styles';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { FM } from './FormModalStyle'
 
-export default function FormModal({ values, userData, updateModal, setUpdateModal, updateHandler, handleChange }) {
+export default function FormModal({ values, updateModal, setUpdateModal, updateHandler, handleChange }) {
+  const { state } = useContext(AppContext)
+  const userData = state.userProfile
+  const role = userData?.role
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const handleCloseUpdate = () => {
@@ -87,8 +86,8 @@ export default function FormModal({ values, userData, updateModal, setUpdateModa
                 value={values.isActive}
                 onChange={handleChange('isActive')}
               >
-                <FormControlLabel key={'true'} value={'true'} disabled={userData !== 'Admin'} control={<Radio />} label={'True'} />
-                <FormControlLabel key={'false'} value={'false'} disabled={userData !== 'Admin'} control={<Radio />} label={'False'} />
+                <FormControlLabel key={'true'} value={'true'} disabled={role !== 'Admin'} control={<Radio />} label={'True'} />
+                <FormControlLabel key={'false'} value={'false'} disabled={role !== 'Admin'} control={<Radio />} label={'False'} />
               </RadioGroup>
               <br/>
               <FormLabel required id="demo-row-radio-buttons-group-label">{"Role"}</FormLabel>
@@ -99,9 +98,9 @@ export default function FormModal({ values, userData, updateModal, setUpdateModa
                 value={values.isAdmin}
                 onChange={handleChange('isAdmin')}
               >
-                <FormControlLabel key={'Admin'} value={'Admin'} disabled={userData !== 'Admin'} control={<Radio />} label={'Admin'} />
-                <FormControlLabel key={'Staff'} value={'Staff'} disabled={userData !== 'Admin'} control={<Radio />} label={'Staff'} />
-                <FormControlLabel key={'User'} value={'User'}   disabled={userData !== 'Admin'} control={<Radio />} label={'User'} />
+                <FormControlLabel key={'Admin'} value={'Admin'} disabled={role !== 'Admin'} control={<Radio />} label={'Admin'} />
+                <FormControlLabel key={'Staff'} value={'Staff'} disabled={role !== 'Admin'} control={<Radio />} label={'Staff'} />
+                <FormControlLabel key={'User'} value={'User'}   disabled={role !== 'Admin'} control={<Radio />} label={'User'} />
               </RadioGroup>
 
             </>

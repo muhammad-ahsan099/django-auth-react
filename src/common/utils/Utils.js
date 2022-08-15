@@ -12,3 +12,15 @@ export const AvatarBgColor = (note) => {
         return { bg: '#E8F3FF', color: '#1E86FF' }
     }
 };
+
+export const RoleBgColor = (note) => {
+    if (note === "a") {
+        return { bg: '#FFEEEF', color: '#FF5963' }
+    }
+    else if (note === "s") {
+        return { bg: '#E6F9F4', color: '#02C58F' }
+    }
+    else {
+        return { bg: '#E8F3FF', color: '#1E86FF' }
+    }
+};

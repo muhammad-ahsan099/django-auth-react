@@ -8,16 +8,16 @@ import { AppContext } from '../../State';
 export const UseUsers = () => {
     const { state, dispatch } = useContext(AppContext)
     let users = state?.users
+    const userData = state.userProfile
     const [open, setOpen] = useState(false)
     const [userId, setUserId] = useState('')
     const [updateModal, setUpdateModal] = useState(false)
     const [loading, setLoading] = useState(false)
-    const userData = state.userProfile
     const { access_token } = getToken()
     const [values, setValues] = useState({
         name: '',
         email: '',
-        isAdmin: userData?.role,
+        isAdmin: '',
         isActive: false,
     });
     const handleChange = (prop) => (event) => {
@@ -62,7 +62,7 @@ export const UseUsers = () => {
                 ...values,
                 name: row?.name,
                 email: row?.email,
-                isAdmin: row?.is_admin,
+                isAdmin: row?.role,
                 isActive: row?.is_active
             });
         }

@@ -10,7 +10,7 @@ import SplashScreen from '../../common/splash/SplashScreen';
 import { IconButton, Tooltip } from '@mui/material';
 import { UseUsers } from './UseUsers';
 import FormModal from '../../common/formModal/FormModal';
-import { AvatarBgColor } from '../../common/utils/Utils'
+import { AvatarBgColor, RoleBgColor } from '../../common/utils/Utils'
 
 export default function Users() {
     const [{ users, userData, values, loading, open, setOpen, deleteHandler, deleteModalHandler, updateModal, setUpdateModal, showUpdateModal, handleChange, updateHandler }] = UseUsers();
@@ -56,10 +56,10 @@ export default function Users() {
                                             <TableCell >{row?.email}</TableCell>
                                             <TableCell align={'center'}>
                                                 <UserStyle.Role variant="outlined"
-                                                    bgColor={AvatarBgColor(row.name[0]?.toLowerCase())?.bg}
-                                                    Color={AvatarBgColor(row.name[0]?.toLowerCase())?.color}
+                                                    bgColor={RoleBgColor(row?.role[0]?.toLowerCase())?.bg}
+                                                    Color={RoleBgColor(row?.role[0]?.toLowerCase())?.color}
                                                 >
-                                                    {row?.is_admin ? 'Admin' : 'User'}
+                                                    {row?.role}
                                                 </UserStyle.Role>
                                             </TableCell>
                                             <TableCell >{row?.created_at?.split('T')[0]}</TableCell>
@@ -95,7 +95,7 @@ export default function Users() {
                             </UserStyle.Table>
                         </UserStyle.TableContainer>
                         <TransitionsModal sumbitHandler={deleteHandler} open={open} setOpen={setOpen} />
-                        <FormModal values={values} userData={userData.role} updateModal={updateModal} setUpdateModal={setUpdateModal} handleChange={handleChange} updateHandler={updateHandler} />
+                        <FormModal values={values} updateModal={updateModal} setUpdateModal={setUpdateModal} handleChange={handleChange} updateHandler={updateHandler} />
                     </>
             }
         </div>
